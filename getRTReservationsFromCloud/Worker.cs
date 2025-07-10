@@ -118,12 +118,14 @@ public class Worker : BackgroundService
                 {
                     // Clone & filter out any special‐case columns for insert
                     var insertParam = param;
-                    if (tableName.Equals("HMS_CHECKIN_HEADER", StringComparison.OrdinalIgnoreCase))
+                    if (tableName.Equals("HMS_CHECKIN_HEADER", StringComparison.OrdinalIgnoreCase) || tableName.Equals("HMS_RESERVATION_ROOM_GUEST", StringComparison.OrdinalIgnoreCase))
                     {
                         insertParam = param
                             .Where(kv => !kv.Key.Equals("Auto_No", StringComparison.OrdinalIgnoreCase))
                             .ToDictionary(kv => kv.Key, kv => kv.Value);
                     }
+
+
 
                     // === NEW: For CHECKIN_LINES, override Auto_No with header's Auto_No ===
                     if (tableName.Equals("HMS_CHECKIN_LINES", StringComparison.OrdinalIgnoreCase))
