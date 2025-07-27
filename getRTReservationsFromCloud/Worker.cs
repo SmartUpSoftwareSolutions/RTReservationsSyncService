@@ -96,7 +96,8 @@ public class Worker : BackgroundService
                         .Except(keyColumns, StringComparer.OrdinalIgnoreCase);
 
                     // special‐case: never update Auto_No in HMS_CHECKIN_HEADER
-                    if (string.Equals(tableName, "HMS_CHECKIN_HEADER", StringComparison.OrdinalIgnoreCase))
+                    if (string.Equals(tableName, "HMS_CHECKIN_HEADER", StringComparison.OrdinalIgnoreCase)
+                    || string.Equals(tableName, "HMS_RESERVATION_ROOM_GUEST", StringComparison.OrdinalIgnoreCase))
                     {
                         columnsToUpdate = columnsToUpdate
                             .Where(c => !c.Equals("Auto_No", StringComparison.OrdinalIgnoreCase));
